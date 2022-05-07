@@ -1,0 +1,26 @@
+{
+  "name": "marc-realtime-gtfs-loader",
+  "version": "0.1.0",
+  "scripts": {
+    "lint-all": "npx eslint **/*",
+    "test": "jest",
+    "start": "node ./marc-realtime-gtfs-loader.js"
+  },
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^14.3.0",
+    "gtfs-realtime-bindings": "^0.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "jest": "^27.4.5"
+  }
+}
