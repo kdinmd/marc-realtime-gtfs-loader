@@ -1,13 +1,13 @@
 const axios = require('axios');
 const fs = require('fs').promises;
-const marcRealtimeGtfs = require('../../src/services/marc-realtime-gtfs.service');
+const marcRealtimeGtfs = require('../lib/marc-realtime-gtfs.service');
 
 jest.mock('axios');
 let gtfsProtoData;
 
 beforeAll(async () => {
   try {
-    const gtfsProtoDataRaw = await fs.readFile('test/services/marc.pb');
+    const gtfsProtoDataRaw = await fs.readFile('test/data/marc.pb');
     gtfsProtoData = new Uint8Array(gtfsProtoDataRaw);
   } catch {
     throw new Error('Failed to load test data proto file');
