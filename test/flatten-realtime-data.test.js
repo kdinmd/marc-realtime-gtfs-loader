@@ -17,11 +17,11 @@ describe('Flatten Realtime Data', () => {
                 stopSequence: 1,
                 arrival: {
                   delay: 583,
-                  time: '1651888273',
+                  time: { unsigned: false, high: 0, low: 1651888273 },
                 },
                 departure: {
                   delay: 623,
-                  time: '1651888343',
+                  time: { unsigned: false, high: 0, low: 1651888343 },
                 },
                 stopId: '11981',
               },
@@ -29,11 +29,11 @@ describe('Flatten Realtime Data', () => {
                 stopSequence: 2,
                 arrival: {
                   delay: 623,
-                  time: '1651888663',
+                  time: { unsigned: false, high: 0, low: 1651888663 },
                 },
                 departure: {
                   delay: 613,
-                  time: '1651888693',
+                  time: { unsigned: false, high: 0, low: 1651888693 },
                 },
                 stopId: '11982',
               },
@@ -41,7 +41,7 @@ describe('Flatten Realtime Data', () => {
             vehicle: {
               id: '000030',
             },
-            timestamp: '1651889241',
+            timestamp: { unsigned: true, high: 0, low: 1651889241 },
           },
           vehicle: {
             trip: {
@@ -55,7 +55,7 @@ describe('Flatten Realtime Data', () => {
               bearing: 180,
               speed: 31.607465744018555,
             },
-            timestamp: '1651889193',
+            timestamp: { unsigned: true, high: 0, low: 1651889193 },
             vehicle: {
               id: '000030',
             },
@@ -74,11 +74,11 @@ describe('Flatten Realtime Data', () => {
                 stopSequence: 6,
                 arrival: {
                   delay: 645,
-                  time: '1651888215',
+                  time: { unsigned: false, high: 0, low: 1651888215 },
                 },
                 departure: {
                   delay: 655,
-                  time: '1651888255',
+                  time: { unsigned: false, high: 0, low: 1651888255 },
                 },
                 stopId: '11994',
               },
@@ -86,11 +86,11 @@ describe('Flatten Realtime Data', () => {
                 stopSequence: 7,
                 arrival: {
                   delay: 795,
-                  time: '1651888715',
+                  time: { unsigned: false, high: 0, low: 1651888715 },
                 },
                 departure: {
                   delay: 785,
-                  time: '1651888745',
+                  time: { unsigned: false, high: 0, low: 1651888745 },
                 },
                 stopId: '11995',
               },
@@ -98,7 +98,7 @@ describe('Flatten Realtime Data', () => {
             vehicle: {
               id: '000031',
             },
-            timestamp: '1651889241',
+            timestamp: { unsigned: true, high: 0, low: 1651889241 },
           },
           vehicle: {
             trip: {
@@ -111,7 +111,7 @@ describe('Flatten Realtime Data', () => {
               longitude: -76.61407470703125,
               bearing: 117,
             },
-            timestamp: '1651889196',
+            timestamp: { unsigned: true, high: 0, low: 1651889196 },
             vehicle: {
               id: '000031',
             },
@@ -121,48 +121,48 @@ describe('Flatten Realtime Data', () => {
 
       const expectedOutput = [
         {
-          tripId: 'Train453',
-          startDate: '20220506',
-          routeId: '11705',
-          vehicleId: '000030',
-          timestamp: '1651889241',
-          stopSequence: 1,
-          arrivalTime: '1651888273',
-          departureTime: '1651888343',
-          stopId: '11981',
+          trip_id: 'Train453',
+          start_date: '20220506',
+          route_id: '11705',
+          vehicle_id: '000030',
+          timestamp: 1651889241,
+          stop_sequence: 1,
+          arrival_time: 1651888273,
+          departure_time: 1651888343,
+          stop_id: '11981',
         },
         {
-          tripId: 'Train453',
-          startDate: '20220506',
-          routeId: '11705',
-          vehicleId: '000030',
-          timestamp: '1651889241',
-          stopSequence: 2,
-          arrivalTime: '1651888663',
-          departureTime: '1651888693',
-          stopId: '11982',
+          trip_id: 'Train453',
+          start_date: '20220506',
+          route_id: '11705',
+          vehicle_id: '000030',
+          timestamp: 1651889241,
+          stop_sequence: 2,
+          arrival_time: 1651888663,
+          departure_time: 1651888693,
+          stop_id: '11982',
         },
         {
-          tripId: 'Train548',
-          startDate: '20220506',
-          routeId: '11705',
-          vehicleId: '000031',
-          timestamp: '1651889241',
-          stopSequence: 6,
-          arrivalTime: '1651888215',
-          departureTime: '1651888255',
-          stopId: '11994',
+          trip_id: 'Train548',
+          start_date: '20220506',
+          route_id: '11705',
+          vehicle_id: '000031',
+          timestamp: 1651889241,
+          stop_sequence: 6,
+          arrival_time: 1651888215,
+          departure_time: 1651888255,
+          stop_id: '11994',
         },
         {
-          tripId: 'Train548',
-          startDate: '20220506',
-          routeId: '11705',
-          vehicleId: '000031',
-          timestamp: '1651889241',
-          stopSequence: 7,
-          arrivalTime: '1651888715',
-          departureTime: '1651888745',
-          stopId: '11995',
+          trip_id: 'Train548',
+          start_date: '20220506',
+          route_id: '11705',
+          vehicle_id: '000031',
+          timestamp: 1651889241,
+          stop_sequence: 7,
+          arrival_time: 1651888715,
+          departure_time: 1651888745,
+          stop_id: '11995',
         },
       ];
 
@@ -183,7 +183,7 @@ describe('Flatten Realtime Data', () => {
               {
                 departure: {
                   delay: 83,
-                  time: '1651885283',
+                  time: { unsigned: false, high: 0, low: 1651885283 },
                 },
                 stopId: '11958',
               },
@@ -191,7 +191,7 @@ describe('Flatten Realtime Data', () => {
                 stopSequence: 12,
                 arrival: {
                   delay: 680,
-                  time: '1651892300',
+                  time: { unsigned: false, high: 0, low: 1651892300 },
                 },
                 stopId: '11976',
               },
@@ -199,7 +199,7 @@ describe('Flatten Realtime Data', () => {
             vehicle: {
               id: '000031',
             },
-            timestamp: '1651889241',
+            timestamp: { unsigned: true, high: 0, low: 1651889241 },
           },
           vehicle: {
             trip: {
@@ -212,7 +212,7 @@ describe('Flatten Realtime Data', () => {
               longitude: -76.61407470703125,
               bearing: 117,
             },
-            timestamp: '1651889196',
+            timestamp: { unsigned: true, high: 0, low: 1651889196 },
             vehicle: {
               id: '000031',
             },
@@ -222,23 +222,26 @@ describe('Flatten Realtime Data', () => {
 
       const expectedOutput = [
         {
-          tripId: 'Train548',
-          startDate: '20220506',
-          routeId: '11705',
-          vehicleId: '000031',
-          timestamp: '1651889241',
-          departureTime: '1651885283',
-          stopId: '11958',
+          trip_id: 'Train548',
+          start_date: '20220506',
+          route_id: '11705',
+          vehicle_id: '000031',
+          timestamp: 1651889241,
+          stop_sequence: undefined,
+          arrival_time: null,
+          departure_time: 1651885283,
+          stop_id: '11958',
         },
         {
-          tripId: 'Train548',
-          startDate: '20220506',
-          routeId: '11705',
-          vehicleId: '000031',
-          timestamp: '1651889241',
-          stopSequence: 12,
-          arrivalTime: '1651892300',
-          stopId: '11976',
+          trip_id: 'Train548',
+          start_date: '20220506',
+          route_id: '11705',
+          vehicle_id: '000031',
+          timestamp: 1651889241,
+          stop_sequence: 12,
+          arrival_time: 1651892300,
+          departure_time: null,
+          stop_id: '11976',
         },
       ];
 
