@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'arrow-body-style': ['error', 'always'],
     'linebreak-style': ['error', 'windows'],
+    'no-else-return': 'off',
   },
   overrides: [
     {
