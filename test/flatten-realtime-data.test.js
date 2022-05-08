@@ -247,6 +247,7 @@ describe('Flatten Realtime Data', () => {
 
       expect(flattenRealtimeData(testInput)).toEqual(expectedOutput);
     });
+
     it('should return empty array for empty input', () => {
       expect(flattenRealtimeData([])).toEqual([]);
       expect(flattenRealtimeData(null)).toEqual([]);
@@ -255,6 +256,16 @@ describe('Flatten Realtime Data', () => {
 
     it('should return empty array for value missing required fields', () => {
       const testInput = [{
+        id: '118143',
+        tripUpdate: {
+          trip: {
+            tripId: 'Train453',
+            startDate: '20220506',
+            routeId: '11705',
+          },
+        },
+      },
+      {
         id: '118143',
         tripUpdate: {
           trip: {

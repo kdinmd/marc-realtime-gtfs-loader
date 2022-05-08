@@ -32,6 +32,16 @@ describe('MARC Realtime GTFS Service', () => {
       expect(data[0]).toHaveProperty(['vehicle', 'vehicle']);
     });
 
+    it('should return empty array for response other than 200', async () => {
+      const resp = { data: gtfsProtoData, status: 500 };
+      axios.get.mockResolvedValue(resp);
+
+      expect.assertions(2);
+      const data = await marcRealtimeGtfs.getRealtimeGTFS();
+      expect(data).toHaveLength(0);
+      expect(data).toEqual([]);
+    });
+
     it('should catch error', async () => {
       axios.get.mockRejectedValue(new Error('Error thrown in getRealtimeGTFS'));
 
