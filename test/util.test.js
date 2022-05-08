@@ -1,10 +1,12 @@
-const { extractTimeNumber } = require('../lib/util');
+const { extractTimeNumber, createTimestamp, addTimestamp } = require('../lib/util');
 
 describe('Util', () => {
   describe('extractTimeNumber', () => {
     it('convert long to number', () => {
-      expect(extractTimeNumber({ unsigned: false, high: 0, low: 1651889241 })).toEqual(1651889241);
-      expect(extractTimeNumber({ unsigned: true, high: 0, low: 2351889241 })).toEqual(2351889241);
+      expect(extractTimeNumber({ unsigned: false, high: 0, low: 1651889241 }))
+        .toEqual(1651889241);
+      expect(extractTimeNumber({ unsigned: true, high: 0, low: 2351889241 }))
+        .toEqual(2351889241);
       expect(extractTimeNumber({ unsigned: false, high: -1, low: 1651889241 }))
         .toEqual(-2643078055);
       expect(extractTimeNumber({ low: 1651889278 })).toEqual(1651889278);
@@ -41,6 +43,38 @@ describe('Util', () => {
 
     it('return null for string that is not a number', () => {
       expect(extractTimeNumber('this is not a number')).toEqual(null);
+    });
+  });
+
+  describe('createTimestamp', () => {
+    it('creates timestamp', () => {
+      // timestamp format expected to be ISO 'YYYY-MM-DDTHH:mm:ss.sss'
+      // split at '.' as timestamps are not created at exactly same time
+      const expectedTimestamp = new Date().toISOString();
+      const newTimestamp = createTimestamp();
+
+      expect(expectedTimestamp.split('.')[0]).toEqual(newTimestamp.split('.')[0]);
+    });
+  });
+
+  describe('addTimestamp', () => {
+    it('adds timestamp to objects', () => {
+      const expectedTimestamp = new Date().toISOString().split('.')[0];
+
+      const input = [
+        { user: 1 },
+        { user: 2 },
+        { user: 3 },
+      ];
+
+      const result = addTimestamp(input, 'updated_at');
+
+      expect(result).toHaveLength(3);
+
+      result.forEach((item, index) => {
+        expect(item.updated_at.split('.')[0]).toEqual(expectedTimestamp);
+        expect(item.user).toEqual(index + 1);
+      });
     });
   });
 });
