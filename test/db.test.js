@@ -1,5 +1,6 @@
 require('dotenv').config();
 const db = require('../lib/db');
+const testingUtils = require('./testing-utils');
 
 const testStopTimeUpdatesTableName = `test_${process.env.STOP_TIME_UPDATES_TABLE}`;
 const existingStopTimeUpdatesTableName = process.env.STOP_TIME_UPDATES_TABLE;
@@ -7,21 +8,22 @@ const existingStopTimeUpdatesTableName = process.env.STOP_TIME_UPDATES_TABLE;
 describe('Database', () => {
   beforeAll(async () => {
     try {
-      await db.dropTable(testStopTimeUpdatesTableName);
-      await db.createTable(testStopTimeUpdatesTableName, existingStopTimeUpdatesTableName);
+      await testingUtils.dropTable(testStopTimeUpdatesTableName);
+      await testingUtils
+        .createTable(testStopTimeUpdatesTableName, existingStopTimeUpdatesTableName);
     } catch (error) {
       console.error(error);
-      await db.closeConnection();
+      await testingUtils.closeConnection();
     }
   });
 
   afterAll(async () => {
     try {
-      await db.dropTable(testStopTimeUpdatesTableName);
-      await db.closeConnection();
+      await testingUtils.dropTable(testStopTimeUpdatesTableName);
+      await testingUtils.closeConnection();
     } catch (error) {
       console.error(error);
-      await db.closeConnection();
+      await testingUtils.closeConnection();
     }
   });
 

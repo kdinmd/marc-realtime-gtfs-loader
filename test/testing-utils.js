@@ -16,10 +16,12 @@ const connectionOptions = {
 };
 const knex = require('knex')(connectionOptions);
 
-const select = async (tableName, columns = [], where = {}) => {
+/* Methods used for testing: */
+
+const createTable = async (newTableName, existingTableName) => {
   try {
-    const result = await knex(tableName).select(columns).where(where);
-    console.log(result);
+    const result = await knex.schema.createTableLike(newTableName, existingTableName);
+    console.log(`Table ${newTableName} created`);
     return result;
   } catch (err) {
     console.error(err);
@@ -27,10 +29,10 @@ const select = async (tableName, columns = [], where = {}) => {
   }
 };
 
-const insert = async (tableName, rows) => {
+const dropTable = async (tableName) => {
   try {
-    const result = await knex(tableName).insert(rows);
-    console.log(result);
+    const result = await knex.schema.dropTableIfExists(tableName);
+    console.log(`Table ${tableName} dropped`);
     return result;
   } catch (err) {
     console.error(err);
@@ -38,20 +40,13 @@ const insert = async (tableName, rows) => {
   }
 };
 
-const upsert = async (tableName, rows, onConflictColumns, mergeColumns) => {
-  try {
-    const result = await knex(tableName)
-      .insert(rows).onConflict(onConflictColumns).merge(mergeColumns);
-    console.log(result);
-    return result;
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
+// Eliminates 'A worker process has failed to exit gracefully' jest message
+const closeConnection = async () => {
+  await knex.destroy();
 };
 
 module.exports = {
-  select,
-  insert,
-  upsert,
+  createTable,
+  dropTable,
+  closeConnection,
 };
