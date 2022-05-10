@@ -1,6 +1,5 @@
 require('dotenv').config();
 const db = require('../lib/db');
-const testingUtils = require('./testing-utils');
 
 const existingStopTimeUpdatesTableName = process.env.STOP_TIME_UPDATES_TABLE;
 const testStopTimeUpdatesTableName = `test_${process.env.STOP_TIME_UPDATES_TABLE}`;
@@ -11,32 +10,32 @@ const testShadowActiveTripsTableName = `test_shadow_${process.env.ACTIVE_TRIPS_T
 describe('Database', () => {
   beforeAll(async () => {
     try {
-      await testingUtils.dropTable(testStopTimeUpdatesTableName);
-      await testingUtils
+      await db.dropTable(testStopTimeUpdatesTableName);
+      await db
         .createTableLike(testStopTimeUpdatesTableName, existingStopTimeUpdatesTableName);
 
-      await testingUtils.dropTable(testActiveTripsTableName);
-      await testingUtils
+      await db.dropTable(testActiveTripsTableName);
+      await db
         .createTableLike(testActiveTripsTableName, existingActiveTripsTableName);
 
-      await testingUtils.dropTable(testShadowActiveTripsTableName);
-      await testingUtils
+      await db.dropTable(testShadowActiveTripsTableName);
+      await db
         .createTableLike(testShadowActiveTripsTableName, existingActiveTripsTableName);
     } catch (error) {
       console.error(error);
-      await testingUtils.closeConnection();
+      await db.closeConnection();
     }
   });
 
   afterAll(async () => {
     try {
-      await testingUtils.dropTable(testStopTimeUpdatesTableName);
-      await testingUtils.dropTable(testActiveTripsTableName);
-      await testingUtils.dropTable(testShadowActiveTripsTableName);
-      await testingUtils.closeConnection();
+      await db.dropTable(testStopTimeUpdatesTableName);
+      await db.dropTable(testActiveTripsTableName);
+      await db.dropTable(testShadowActiveTripsTableName);
+      await db.closeConnection();
     } catch (error) {
       console.error(error);
-      await testingUtils.closeConnection();
+      await db.closeConnection();
     }
   });
 
