@@ -120,7 +120,7 @@ describe('Database', () => {
         'departure_time',
         'vehicle_id',
         'timestamp',
-        'record_created',
+        'created_at',
         'updated_at',
       ];
       const result = await db.select(testStopTimeUpdatesTableName);
@@ -157,7 +157,7 @@ describe('Database', () => {
         'departure_time',
         'vehicle_id',
         'timestamp',
-        'record_created',
+        'created_at',
         'updated_at',
       ];
       const testTripId = 'Train200';
@@ -291,6 +291,7 @@ describe('Database', () => {
   });
 
   describe('replace', () => {
+    const activeTripsSelectColumns = ['trip_id', 'start_date'];
     it('should insert data into empty table', async () => {
       const newRows = [
         { trip_id: 'id_123', start_date: '20220509' },
@@ -299,10 +300,12 @@ describe('Database', () => {
       ];
       await db.replace(testActiveTripsTableName, testShadowActiveTripsTableName, newRows);
       // new data should be in active table
-      const currentActiveTripsContents = await db.select(testActiveTripsTableName);
+      const currentActiveTripsContents = await db
+        .select(testActiveTripsTableName, activeTripsSelectColumns);
       expect(currentActiveTripsContents).toEqual(newRows);
       // shadow table should be empty
-      const shadowActiveTripsContents = await db.select(testShadowActiveTripsTableName);
+      const shadowActiveTripsContents = await db
+        .select(testShadowActiveTripsTableName, activeTripsSelectColumns);
       expect(shadowActiveTripsContents).toEqual([]);
     });
 
@@ -318,16 +321,19 @@ describe('Database', () => {
       ];
       // verify existing data is in table
       // new data should be in active table
-      const existingCurrentActiveTripsContents = await db.select(testActiveTripsTableName);
+      const existingCurrentActiveTripsContents = await db
+        .select(testActiveTripsTableName, activeTripsSelectColumns);
       expect(existingCurrentActiveTripsContents).toEqual(oldRows);
 
       await db.replace(testActiveTripsTableName, testShadowActiveTripsTableName, newRows);
 
       // new data should be in active table
-      const currentActiveTripsContents = await db.select(testActiveTripsTableName);
+      const currentActiveTripsContents = await db
+        .select(testActiveTripsTableName, activeTripsSelectColumns);
       expect(currentActiveTripsContents).toEqual(newRows);
       // shadow table should be empty
-      const shadowActiveTripsContents = await db.select(testShadowActiveTripsTableName);
+      const shadowActiveTripsContents = await db
+        .select(testShadowActiveTripsTableName, activeTripsSelectColumns);
       expect(shadowActiveTripsContents).toEqual([]);
     });
 
@@ -338,16 +344,18 @@ describe('Database', () => {
       ];
       // verify existing data is in table
       // new data should be in active table
-      const existingCurrentActiveTripsContents = await db.select(testActiveTripsTableName);
+      const existingCurrentActiveTripsContents = await db.select(testActiveTripsTableName, ['trip_id', 'start_date']);
       expect(existingCurrentActiveTripsContents).toEqual(oldRows);
 
       await db.replace(testActiveTripsTableName, testShadowActiveTripsTableName, []);
 
       // new data should be in active table
-      const currentActiveTripsContents = await db.select(testActiveTripsTableName);
+      const currentActiveTripsContents = await db
+        .select(testActiveTripsTableName, activeTripsSelectColumns);
       expect(currentActiveTripsContents).toEqual([]);
       // shadow table should be empty
-      const shadowActiveTripsContents = await db.select(testShadowActiveTripsTableName);
+      const shadowActiveTripsContents = await db
+        .select(testShadowActiveTripsTableName, activeTripsSelectColumns);
       expect(shadowActiveTripsContents).toEqual([]);
     });
   });
