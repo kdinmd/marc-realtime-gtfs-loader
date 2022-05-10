@@ -21,8 +21,8 @@ describe('Database', () => {
       await db.dropTable(testShadowActiveTripsTableName);
       await db
         .createTableLike(testShadowActiveTripsTableName, existingActiveTripsTableName);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       await db.closeConnection();
     }
   });
@@ -33,8 +33,8 @@ describe('Database', () => {
       await db.dropTable(testActiveTripsTableName);
       await db.dropTable(testShadowActiveTripsTableName);
       await db.closeConnection();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       await db.closeConnection();
     }
   });
