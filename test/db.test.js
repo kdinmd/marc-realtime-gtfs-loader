@@ -2,15 +2,26 @@ require('dotenv').config();
 const db = require('../lib/db');
 const testingUtils = require('./testing-utils');
 
-const testStopTimeUpdatesTableName = `test_${process.env.STOP_TIME_UPDATES_TABLE}`;
 const existingStopTimeUpdatesTableName = process.env.STOP_TIME_UPDATES_TABLE;
+const testStopTimeUpdatesTableName = `test_${process.env.STOP_TIME_UPDATES_TABLE}`;
+const existingActiveTripsTableName = process.env.ACTIVE_TRIPS_TABLE;
+const testActiveTripsTableName = `test_${process.env.ACTIVE_TRIPS_TABLE}`;
+const testShadowActiveTripsTableName = `test_shadow_${process.env.ACTIVE_TRIPS_TABLE}`;
 
 describe('Database', () => {
   beforeAll(async () => {
     try {
       await testingUtils.dropTable(testStopTimeUpdatesTableName);
       await testingUtils
-        .createTable(testStopTimeUpdatesTableName, existingStopTimeUpdatesTableName);
+        .createTableLike(testStopTimeUpdatesTableName, existingStopTimeUpdatesTableName);
+
+      await testingUtils.dropTable(testActiveTripsTableName);
+      await testingUtils
+        .createTableLike(testActiveTripsTableName, existingActiveTripsTableName);
+
+      await testingUtils.dropTable(testShadowActiveTripsTableName);
+      await testingUtils
+        .createTableLike(testShadowActiveTripsTableName, existingActiveTripsTableName);
     } catch (error) {
       console.error(error);
       await testingUtils.closeConnection();
@@ -20,6 +31,8 @@ describe('Database', () => {
   afterAll(async () => {
     try {
       await testingUtils.dropTable(testStopTimeUpdatesTableName);
+      await testingUtils.dropTable(testActiveTripsTableName);
+      await testingUtils.dropTable(testShadowActiveTripsTableName);
       await testingUtils.closeConnection();
     } catch (error) {
       console.error(error);
@@ -275,6 +288,68 @@ describe('Database', () => {
       ];
       const result = await db.upsert(testStopTimeUpdatesTableName, updatedRows, onConflictColumns);
       expect(result.rowCount).toEqual(4);
+    });
+  });
+
+  describe('replace', () => {
+    it('should insert data into empty table', async () => {
+      const newRows = [
+        { trip_id: 'id_123', start_date: '20220509' },
+        { trip_id: 'id_456', start_date: '20220509' },
+        { trip_id: 'id_789', start_date: '20220510' },
+      ];
+      await db.replace(testActiveTripsTableName, testShadowActiveTripsTableName, newRows);
+      // new data should be in active table
+      const currentActiveTripsContents = await db.select(testActiveTripsTableName);
+      expect(currentActiveTripsContents).toEqual(newRows);
+      // shadow table should be empty
+      const shadowActiveTripsContents = await db.select(testShadowActiveTripsTableName);
+      expect(shadowActiveTripsContents).toEqual([]);
+    });
+
+    it('should replace existing data in table', async () => {
+      const oldRows = [
+        { trip_id: 'id_123', start_date: '20220509' },
+        { trip_id: 'id_456', start_date: '20220509' },
+        { trip_id: 'id_789', start_date: '20220510' },
+      ];
+      const newRows = [
+        { trip_id: 'id_741', start_date: '20220511' },
+        { trip_id: 'id_852', start_date: '20220512' },
+      ];
+      // verify existing data is in table
+      // new data should be in active table
+      const existingCurrentActiveTripsContents = await db.select(testActiveTripsTableName);
+      expect(existingCurrentActiveTripsContents).toEqual(oldRows);
+
+      await db.replace(testActiveTripsTableName, testShadowActiveTripsTableName, newRows);
+
+      // new data should be in active table
+      const currentActiveTripsContents = await db.select(testActiveTripsTableName);
+      expect(currentActiveTripsContents).toEqual(newRows);
+      // shadow table should be empty
+      const shadowActiveTripsContents = await db.select(testShadowActiveTripsTableName);
+      expect(shadowActiveTripsContents).toEqual([]);
+    });
+
+    it('should empty table if empty array passed', async () => {
+      const oldRows = [
+        { trip_id: 'id_741', start_date: '20220511' },
+        { trip_id: 'id_852', start_date: '20220512' },
+      ];
+      // verify existing data is in table
+      // new data should be in active table
+      const existingCurrentActiveTripsContents = await db.select(testActiveTripsTableName);
+      expect(existingCurrentActiveTripsContents).toEqual(oldRows);
+
+      await db.replace(testActiveTripsTableName, testShadowActiveTripsTableName, []);
+
+      // new data should be in active table
+      const currentActiveTripsContents = await db.select(testActiveTripsTableName);
+      expect(currentActiveTripsContents).toEqual([]);
+      // shadow table should be empty
+      const shadowActiveTripsContents = await db.select(testShadowActiveTripsTableName);
+      expect(shadowActiveTripsContents).toEqual([]);
     });
   });
 });

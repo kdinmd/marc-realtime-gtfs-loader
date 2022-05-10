@@ -18,7 +18,7 @@ const knex = require('knex')(connectionOptions);
 
 /* Methods used for testing: */
 
-const createTable = async (newTableName, existingTableName) => {
+const createTableLike = async (newTableName, existingTableName) => {
   try {
     const result = await knex.schema.createTableLike(newTableName, existingTableName);
     console.log(`Table ${newTableName} created`);
@@ -46,7 +46,7 @@ const closeConnection = async () => {
 };
 
 module.exports = {
-  createTable,
+  createTableLike,
   dropTable,
   closeConnection,
 };
