@@ -1,7 +1,7 @@
-const { getStopTimeUpdates, getActiveTrips, getTrainPositions } = require('../lib/gtfs-data-extractors');
+const { extractStopTimeUpdates, extractActiveTrips, extractTrainPositions } = require('../lib/gtfs-data-extractors');
 
 describe('GTFS Data Extractors', () => {
-  describe('getStopTimeUpdates', () => {
+  describe('extractStopTimeUpdates', () => {
     it('should return an array of formatted realtime data', () => {
       const testInput = [
         {
@@ -166,7 +166,7 @@ describe('GTFS Data Extractors', () => {
         },
       ];
 
-      expect(getStopTimeUpdates(testInput)).toEqual(expectedOutput);
+      expect(extractStopTimeUpdates(testInput)).toEqual(expectedOutput);
     });
 
     it('should handle trip departure (first) and destination (last) station properly', () => {
@@ -245,13 +245,13 @@ describe('GTFS Data Extractors', () => {
         },
       ];
 
-      expect(getStopTimeUpdates(testInput)).toEqual(expectedOutput);
+      expect(extractStopTimeUpdates(testInput)).toEqual(expectedOutput);
     });
 
     it('should return empty array for empty input', () => {
-      expect(getStopTimeUpdates([])).toEqual([]);
-      expect(getStopTimeUpdates(null)).toEqual([]);
-      expect(getStopTimeUpdates(undefined)).toEqual([]);
+      expect(extractStopTimeUpdates([])).toEqual([]);
+      expect(extractStopTimeUpdates(null)).toEqual([]);
+      expect(extractStopTimeUpdates(undefined)).toEqual([]);
     });
 
     it('should return empty array for value missing required fields', () => {
@@ -275,11 +275,11 @@ describe('GTFS Data Extractors', () => {
           },
         },
       }];
-      expect(getStopTimeUpdates(testInput)).toEqual([]);
+      expect(extractStopTimeUpdates(testInput)).toEqual([]);
     });
   });
 
-  describe('getActiveTrips', () => {
+  describe('extractActiveTrips', () => {
     it('should return an array of active trips', () => {
       const testInput = [
         {
@@ -410,17 +410,17 @@ describe('GTFS Data Extractors', () => {
         },
       ];
 
-      expect(getActiveTrips(testInput)).toEqual(expectedOutput);
+      expect(extractActiveTrips(testInput)).toEqual(expectedOutput);
     });
 
     it('should return empty array for empty input', () => {
-      expect(getActiveTrips([])).toEqual([]);
-      expect(getActiveTrips(null)).toEqual([]);
-      expect(getActiveTrips(undefined)).toEqual([]);
+      expect(extractActiveTrips([])).toEqual([]);
+      expect(extractActiveTrips(null)).toEqual([]);
+      expect(extractActiveTrips(undefined)).toEqual([]);
     });
   });
 
-  describe('getTrainPositions', () => {
+  describe('extractTrainPositions', () => {
     it('should return an array of train positions', () => {
       const testInput = [
         {
@@ -559,13 +559,13 @@ describe('GTFS Data Extractors', () => {
         },
       ];
 
-      expect(getTrainPositions(testInput)).toEqual(expectedOutput);
+      expect(extractTrainPositions(testInput)).toEqual(expectedOutput);
     });
 
     it('should return empty array for empty input', () => {
-      expect(getTrainPositions([])).toEqual([]);
-      expect(getTrainPositions(null)).toEqual([]);
-      expect(getTrainPositions(undefined)).toEqual([]);
+      expect(extractTrainPositions([])).toEqual([]);
+      expect(extractTrainPositions(null)).toEqual([]);
+      expect(extractTrainPositions(undefined)).toEqual([]);
     });
   });
 });
