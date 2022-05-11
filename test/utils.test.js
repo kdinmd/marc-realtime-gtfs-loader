@@ -1,6 +1,6 @@
-const { extractTimeNumber, createTimestamp, addTimestamp } = require('../lib/util');
+const { extractTimeNumber, createTimestamp, addTimestamp } = require('../lib/utils');
 
-describe('Util', () => {
+describe('Utils', () => {
   describe('extractTimeNumber', () => {
     it('convert long to number', () => {
       expect(extractTimeNumber({ unsigned: false, high: 0, low: 1651889241 }))
