@@ -1,0 +1,22 @@
+{
+  "$id": "PositionSchema",
+  "type": "object",
+  "properties": {
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "bearing": {
+      "type": "number"
+    },
+    "speed": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "latitude",
+    "longitude"
+  ]
+}

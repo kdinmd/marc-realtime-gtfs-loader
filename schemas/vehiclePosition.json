@@ -1,0 +1,23 @@
+{
+  "$id": "VehiclePositionSchema",
+  "type": "object",
+  "properties": {
+    "trip": {
+      "$ref": "TripDescriptorSchema"
+    },
+    "position": {
+      "$ref": "PositionSchema"
+    },
+    "timestamp": {
+      "$ref": "TimestampSchema"
+    },
+    "vehicle": {
+      "$ref": "VehicleDescriptorSchema"
+    }
+  },
+  "required": [
+    "trip",
+    "position",
+    "timestamp"
+  ]
+}

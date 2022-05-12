@@ -1,0 +1,19 @@
+{
+  "$id": "TripDescriptorSchema",
+  "type": "object",
+  "properties": {
+    "tripId": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "string"
+    },
+    "routeId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "tripId",
+    "startDate"
+  ]
+}

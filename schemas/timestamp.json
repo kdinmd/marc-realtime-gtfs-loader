@@ -1,0 +1,20 @@
+{
+  "$id": "TimestampSchema",
+  "type": "object",
+  "properties": {
+    "unsigned": {
+      "type": "boolean"
+    },
+    "high": {
+      "type": "number"
+    },
+    "low": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "unsigned",
+    "high",
+    "low"
+  ]
+}

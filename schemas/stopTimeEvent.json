@@ -1,0 +1,31 @@
+{
+  "$id": "StopTimeEventSchema",
+  "type": "object",
+  "properties": {
+    "time": {
+      "type": "object",
+      "properties": {
+        "unsigned": {
+          "type": "boolean"
+        },
+        "high": {
+          "type": "number"
+        },
+        "low": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unsigned",
+        "high",
+        "low"
+      ]
+    },
+    "delay": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "time"
+  ]
+}

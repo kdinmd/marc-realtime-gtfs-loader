@@ -1,0 +1,26 @@
+{
+  "$id": "TripUpdateSchema",
+  "type": "object",
+  "properties": {
+    "trip": {
+      "$ref": "TripDescriptorSchema"
+    },
+    "stopTimeUpdate": {
+      "type": "array",
+      "items" : {
+        "$ref": "StopTimeUpdateSchema"
+    }
+    },
+    "vehicle": {
+      "$ref": "VehicleDescriptorSchema"
+    },
+    "timestamp": {
+      "$ref": "TimestampSchema"
+    }
+  },
+  "required": [
+    "trip",
+    "stopTimeUpdate",
+    "timestamp"
+  ]
+}

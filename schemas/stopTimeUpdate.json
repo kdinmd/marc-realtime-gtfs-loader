@@ -1,0 +1,21 @@
+{
+  "$id": "StopTimeUpdateSchema",
+  "type": "object",
+  "properties": {
+    "stopSequence": {
+      "type": "number"
+    },
+    "stopId": {
+      "type": "string"
+    },
+    "arrival": {
+      "$ref": "StopTimeEventSchema"
+    },
+    "departure": {
+      "$ref": "StopTimeEventSchema"
+    }
+  },
+  "required": [
+    "stopId"
+  ]
+}
