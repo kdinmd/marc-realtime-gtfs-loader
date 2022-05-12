@@ -14,19 +14,23 @@ const loadRealtimeMarcData = async () => {
 };
 
 const repeatLoadData = async () => {
-  console.log('Start retrieving and loading new data');
-  const startTime = new Date();
+  try {
+    console.log('Start retrieving and loading new data');
+    const startTime = new Date();
 
-  await loadRealtimeMarcData();
+    await loadRealtimeMarcData();
 
-  const finishTime = new Date();
-  const executionTime = finishTime - startTime;
-  console.log('Finished retrieving and loading new data.');
-  console.log(`Completed in ${executionTime} milliseconds.`);
+    const finishTime = new Date();
+    const executionTime = finishTime - startTime;
+    console.log('Finished retrieving and loading new data.');
+    console.log(`Completed in ${executionTime} milliseconds.\n`);
 
-  const timeout = getTimeout(executionTime, process.env.DESIRED_TIMEOUT_SECONDS);
+    const timeout = getTimeout(executionTime, process.env.DESIRED_TIMEOUT_SECONDS);
 
-  setTimeout(repeatLoadData, timeout);
+    setTimeout(repeatLoadData, timeout);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 repeatLoadData().catch((error) => {
