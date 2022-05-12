@@ -17,5 +17,17 @@
   },
   "required": [
     "stopId"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "arrival"
+      ]
+    },
+    {
+      "required": [
+        "departure"
+      ]
+    }
   ]
 }

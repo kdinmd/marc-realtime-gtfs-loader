@@ -6,10 +6,7 @@
       "$ref": "TripDescriptorSchema"
     },
     "stopTimeUpdate": {
-      "type": "array",
-      "items" : {
-        "$ref": "StopTimeUpdateSchema"
-    }
+      "type": "array"
     },
     "vehicle": {
       "$ref": "VehicleDescriptorSchema"
