@@ -111,38 +111,20 @@ describe('Utils', () => {
 
   describe('getTimeout', () => {
     it('should calculate timeout', () => {
-      const startTime = new Date();
-      const finishTime = new Date();
-      finishTime.setTime(finishTime.getTime() + utils.secondsToMilliseconds(8));
-
-      expect(utils.getTimeout(startTime, finishTime, 15)).toEqual(utils.secondsToMilliseconds(7));
-      expect(utils.getTimeout(startTime, finishTime, 10)).toEqual(utils.secondsToMilliseconds(2));
+      expect(utils.getTimeout(utils.secondsToMilliseconds(8), 15))
+        .toEqual(utils.secondsToMilliseconds(7));
+      expect(utils.getTimeout(utils.secondsToMilliseconds(2), 15))
+        .toEqual(utils.secondsToMilliseconds(13));
+      expect(utils.getTimeout(utils.secondsToMilliseconds(8), 10))
+        .toEqual(utils.secondsToMilliseconds(2));
     });
 
     it('should return 0 if calculated timeout is less than 0', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(new Date(2022, 4, 10, 12, 30, 5));
-
-      const startTime = new Date();
-      const finishTime = new Date();
-      finishTime.setTime(finishTime.getTime() + utils.secondsToMilliseconds(16));
-
-      expect(utils.getTimeout(startTime, finishTime, 15)).toEqual(0);
-
-      jest.useRealTimers();
+      expect(utils.getTimeout(utils.secondsToMilliseconds(16), 15)).toEqual(0);
     });
 
     it('should throw error if start time is after finish time', () => {
-      jest.useFakeTimers();
-      jest.setSystemTime(new Date(2022, 4, 10, 12, 30, 5));
-
-      const startTime = new Date();
-      const finishTime = new Date();
-      startTime.setTime(startTime.getTime() + utils.secondsToMilliseconds(16));
-
-      expect(() => { return utils.getTimeout(startTime, finishTime, 15); }).toThrow();
-
-      jest.useRealTimers();
+      expect(() => { return utils.getTimeout(-100, 15); }).toThrow();
     });
   });
 });
