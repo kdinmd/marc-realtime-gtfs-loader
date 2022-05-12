@@ -21,7 +21,7 @@ describe('GTFS Data Extractors', () => {
                 },
                 departure: {
                   delay: 623,
-                  time: { unsigned: false, high: 0, low: 1651888343 },
+                  time: 1651888343,
                 },
                 stopId: '11981',
               },
@@ -29,7 +29,7 @@ describe('GTFS Data Extractors', () => {
                 stopSequence: 2,
                 arrival: {
                   delay: 623,
-                  time: { unsigned: false, high: 0, low: 1651888663 },
+                  time: 1651888663,
                 },
                 departure: {
                   delay: 613,
@@ -41,7 +41,7 @@ describe('GTFS Data Extractors', () => {
             vehicle: {
               id: '000030',
             },
-            timestamp: { unsigned: true, high: 0, low: 1651889241 },
+            timestamp: 1651889241,
           },
           vehicle: {
             trip: {
