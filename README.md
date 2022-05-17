@@ -33,7 +33,7 @@ Loads realtime Maryland Area Rail Commuter (MARC) data into a PostgreSQL databas
 <!-- CONTACT -->
 ## Contact
 
-Keaton Danielson - kdinmd.marc@gmail.com
+Keaton Danielson - kdinmd.marc@gmail.com  - [![LinkedIn]( 	https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/keaton-danielson)
 
 Project Link: [https://github.com/kdinmd/marc-realtime-gtfs-loader](https://github.com/kdinmd/marc-realtime-gtfs-loader)
 
